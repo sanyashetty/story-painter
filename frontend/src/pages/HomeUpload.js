@@ -14,13 +14,12 @@ const HomeUpload = () => {
 			<h1 className="title">Story Painter</h1>
             <p>Upload your own:</p>
             { <FileUploadComponent /> }
-			<p>Select the genre that you want your story to be:</p>
+			<p className="genre-bar-text">Select what genre of story you would like:</p>
 			<GenreSelector setSelectedGenre={setSelectedGenre} selectedGenre={selectedGenre}></GenreSelector>
             <StoryGenerator selectedGenre = {selectedGenre}/>
 		</div>
         
 	);
 };
-
 
 export default HomeUpload;

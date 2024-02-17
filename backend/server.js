@@ -123,13 +123,17 @@ function encodeImageToBase64(imagePath) {
     return fs.readFileSync(imagePath, { encoding: 'base64' });
 }
 
-const newImgPath = path.join(__dirname, 'uploads', "test-image.jpeg");
-const base64Image = encodeImageToBase64(newImgPath);
 
 let storyText; 
 
 app.get('/generate-story', async (req, res) => {
     const uploadsDir = path.join(__dirname, 'uploads');
+    const genre = req.query.genre;
+
+    if (!genre) {
+        console.error('No genre was selected.');
+        return res.status(500).send('No genre was selected.');
+    }
 
     fs.readdir(uploadsDir, { withFileTypes: true }, async (err, files) => {
         if (err) {
@@ -137,27 +141,29 @@ app.get('/generate-story', async (req, res) => {
             return res.status(500).send('Error reading uploads directory');
         }
 
-        // let fileList = files.filter(file => file.isFile())
-        //                     .map(file => ({ name: file.name, time: fs.statSync(path.join(uploadsDir, file.name)).mtime.getTime() }))
-        //                     .sort((a, b) => b.time - a.time); // Sort by time in descending order
+        let fileList = files.filter(file => file.isFile())
+                            .map(file => ({ name: file.name, time: fs.statSync(path.join(uploadsDir, file.name)).mtime.getTime() }))
+                            .sort((a, b) => b.time - a.time); // Sort by time in descending order
 
-        // if (fileList.length === 0) {
-        //     return res.status(404).send('No files found in uploads');
-        // }
+        if (fileList.length === 0) {
+            return res.status(404).send('No files found in uploads');
+        }
 
-        // // Get the most recent file
-        // const mostRecentFile = fileList[0].name;
+        // Get the most recent file
+        const mostRecentFile = fileList[0].name;
 
-        // const imageURL = `${req.protocol}://${req.get('host')}/uploads/${mostRecentFile}`;
-
+        const imageURL = path.join(__dirname, 'uploads', mostRecentFile);
+        const base64Image = encodeImageToBase64(imageURL);
+        
         try {
+            const promptText = `Generate a 1 paragraph ${genre} story based on this image. Make the first line the title.`
             const response = await openai.chat.completions.create({
                 model: "gpt-4-vision-preview",
                 messages: [
                     {
                         role: "user",
                         content: [
-                            { type: "text", text: "Generate a 2 sentence children's story based on this image. Make the first line the title."},
+                            { type: "text", text: promptText},
                             { type: "image_url", image_url: {"url": `data:image/jpeg;base64,${base64Image}` } },
                         ],
                     },

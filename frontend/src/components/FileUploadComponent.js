@@ -34,7 +34,7 @@ const FileUploadComponent = () => {
     return (
         <form onSubmit={handleSubmit}>
             <input className='fileUpload' type="file" onChange={handleFileChange} />
-            <button type="submit">Upload</button>
+            <button className = 'file-upload-button' type="submit">Upload</button>
         </form>
     );
 }

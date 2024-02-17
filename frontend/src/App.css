@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Megrim&family=Source+Sans+Pro:wght@400;700&display=swap');
 
+@import url('https://db.onlinewebfonts.com/c/ab596f21664c5582567537d241e2a53e?family=DIN+Next+Rounded+LT+W01+Regular');
 
 body {
   font-family: 'Source Sans Pro', sans-serif;
@@ -8,7 +9,7 @@ body {
 }
 
 button {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'DIN Next Rounded LT W01 Regular';
 
 }
 
@@ -50,7 +51,7 @@ p {
 }
 
 .saveButton:hover {
-  background-color: #2758a6; /* Dark background on hover */
+  background-color: #10b981; /* Dark background on hover */
   color: #FFFFFF; /* White text on hover */
   transform: scale(1.2); /* Slightly increase size on hover */
 }
@@ -72,9 +73,34 @@ p {
    cursor: pointer;
 } 
 
+
+
+.genre-bar-text {
+  font-size: 24px; /* Increase font size */
+  font-weight: bold; /* Make text bold */
+  color: #fff; /* Dark gray color */
+  text-align: center; /* Center the text */
+  margin: 20px 0; /* Add some vertical spacing */
+}
+
+.genre-options {
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  border: #FCD34D;
+  background-color: #FCD34D; /* Light yellow background color */
+  border-radius: 10px; 
+  width: px; 
+  margin: 0 auto; /* Center the div */
+}
+
+
 .genre-options .button {
-  margin: 10px;
-  padding: 5px 10px;
+  transition: all 0.3s ease; /* Smooth transition */
+    padding: 8px 8px;
   background-color: #FFFFFF; /* Yellow background */
   border: none;
   border-radius: 5px;
@@ -89,41 +115,113 @@ p {
 }
 
 .genre-options .selected {
-  margin: 10px;
-  padding: 5px 10px;
-  background-color: #FCD34D; /* Yellow background */
+  padding: 5px 5px;
+  background-color: #2758a6 ; /* blue background */
   border: none;
+  transform: scale(1.1);
+  border-radius: 5px;
+  color: #FFFFFF; /* Dark text */
+  cursor: pointer;
+}
+
+.generate-button {
+  margin: 20px;
+  padding: 15px 15px;
+  background-color: #FFFFFF; /* White background */
+  border: none;
+  font-size: 18px;
   border-radius: 5px;
   color: #1E293B; /* Dark text */
   cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+}
+
+.generate-button:hover {
+  background-color: #10b981; /* Dark background on hover */
+  color: #FFFFFF; /* White text on hover */
+  transform: scale(1.2); /* Slightly increase size on hover */
+}
+
+/* .button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  
+} */
+
+
+/*
+.canvas-plus-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: start; Align items to the start of the flex container 
+
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;  Align buttons to the start 
+}
+*/
+
+.sketch-title {
+  color: black;
+}
+
+.canvas-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1000px;
+  max-height: 1000px;
+  padding: 20px;
+  border: #FCD34D;
+  background-color: #FCD34D; /* Light yellow background color */
+  border-radius: 20px; 
+  width: px; 
+  margin: 0 auto; /* Center the div */
+  margin-top: 35px;
+}
+
+.canvas-container .button-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .canvas-container .button {
-  margin: 10px;
+  margin-top: 10px;
   padding: 5px 10px;
-  background-color: #FCD34D; /* Yellow background */
+  width: 110px;
+  height: 50px;
+  background-color: #2758a6; /* Yellow background */
   border: none;
   border-radius: 5px;
-  color: #1E293B; /* Dark text */
+  color: #FFFFFF; /* Dark text */
   cursor: pointer;
+  font-size: 20px;
 }
 
 .canvas-container input[type='color'] {
-  margin: 10px;
+  /* margin: 10px; */
   padding: 0px 1px;
-  background-color: #FCD34D; /* Yellow background */
+  background-color: #FFFFFF; /* Yellow background */
   border: none;
   border-radius: 5px;
   color: #1E293B; /* Dark text */
   cursor: pointer;
+  align-self: flex-end;
 }
 
 .canvas-container input[type='color'] {
-  height: 30px; /* Adjust the height as needed */
-  width: 30px; /* Adjust the width as needed */
-  border: 1px solid #1E293B; /* Optional: Adds a border */
+  height: 50px; /* Adjust the height as needed */
+  width: 50px; /* Adjust the width as needed */
+  border: 3px solid #1E293B; 
   border-radius: 5px; /* Optional: Rounds the corners */
   cursor: pointer;
+  align-self: flex-end;
 }
 
 .canvas-container input[type='range'] {
@@ -147,7 +245,6 @@ input[type='range']::-webkit-slider-thumb {
   align-items: center;
 }
 
-
 .create-story-style {
   display: inline-block;
   background-color: #f4f4f4;
@@ -170,6 +267,24 @@ input[type='range']::-webkit-slider-thumb {
 .fileUpload:hover {
   background-color: #2758a6;
   color: #f4f4f4;
+}
+
+.file-upload-button {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FFFFFF; /* White background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+}
+
+.file-upload-button:hover {
+  background-color: #10b981; /* Dark background on hover */
+  color: #FFFFFF; /* White text on hover */
+  transform: scale(1.2); /* Slightly increase size on hover */
 }
 
 .title-landing {
@@ -202,10 +317,59 @@ input[type='range']::-webkit-slider-thumb {
   border-radius: 20px;
   width: 650px;
   height: 100px;
+  transition: background-color 0.3s ease;
+}
+.button-landing:hover {
+  background-color: #2758a6;
+  color: #f4f4f4;
 }
 
-.button-container {
+/* .button-container {
   display: flex;
   justify-content: center;
   flex-direction: column;
+} */
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden; 
+  white-space: nowrap; /* Keeps the text in a single line */
+  animation: typing 3.5s steps(40, end);
+}
+
+.typewriter::after {
+  content: '|';
+  animation: blink-caret .75s step-end infinite; /* Blinking effect */
+  opacity: 1; /* Make cursor fully visible when not blinking */
+}
+
+/* Typewriter typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* Cursor animations */
+@keyframes blink-caret {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+
+.story-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically, if desired */
+  padding: 50px; /* Add padding to ensure some space around the .story-box */
+}
+
+.story-box {
+  background-color: white; /* White background */
+  color: #1E293B; /* Text color */
+  padding: 20px; /* Padding inside the box */
+  border-radius: 10px; 
+  max-width: 600px; 
+  width: 100%; 
+  margin: auto; 
+  box-sizing: border-box;
 }
