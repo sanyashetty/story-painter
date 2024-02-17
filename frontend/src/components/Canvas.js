@@ -4,10 +4,15 @@ import '../App.css';
 
 export default function Canvas() {
     const [color, setColor] = useState("#000000");
+    const [radius, setRadius] = useState(2);
     const canvasRef = useRef(null);
 
     const handleColorChange = (event) => {
         setColor(event.target.value);
+    };
+
+    const handleRadiusChange = (event) => {
+        setRadius(event.target.value);
     };
 
     const clearCanvas = () => {
@@ -29,14 +34,14 @@ export default function Canvas() {
     }
 
     return (
-        <div>
+        <div className = "canvas-container">
             <div className="canvas">
                 <CanvasDraw
                     ref={canvasRef}
                     brushColor={color}
                     canvasWidth={800}
                     canvasHeight={400}
-                    brushRadius={2}
+                    brushRadius={radius}
                     lazyRadius={0}
                     style={{ border: '2px solid #000' }}
                     hideGrid={true}
@@ -44,9 +49,10 @@ export default function Canvas() {
             </div>
             <div>
                 <input type="color" value={color} onChange={handleColorChange} />
-                <button onClick={() => setColor("#FFFFFF")}>Eraser</button>
-                <button onClick={clearCanvas}>Clear</button>
-                <button onClick={undoLast}>Undo</button>
+                <input type="range" min="1" max="10" value={radius} onChange={handleRadiusChange} />
+                <button className = "button" onClick={() => setColor("#FFFFFF")}>Eraser</button>
+                <button className = "button" onClick={clearCanvas}>Clear</button>
+                <button className = "button" onClick={undoLast}>Undo</button>
             </div>
             <button onClick={saveImage}>Save Drawing</button>
         </div>

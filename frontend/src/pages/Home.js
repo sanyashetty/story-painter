@@ -2,6 +2,7 @@ import React from "react";
 import '../App.css';
 import Canvas from '../components/Canvas'
 import FileUploadComponent from "../components/FileUploadComponent"
+import { Link } from "react-router-dom";
 
 const Home = () => {
 
@@ -12,11 +13,12 @@ const Home = () => {
 				From scribbles to stories...
 			</p>
             { <Canvas className = "canvas"></Canvas> }
-            {/* <FileUploadComponent /> */}
-    
+            { <FileUploadComponent /> }
+            <Link to = "/StoryPage" className="create-story-style">Create Your Story!</Link>
 		</div>
         
 	);
 };
+
 
 export default Home;

@@ -1,8 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+
 body {
+  font-family: 'Nunito', sans-serif;
+
   background-color: #1E293B;
 }
-h1 {
+
+button {
+  font-family: 'Nunito', sans-serif;
+
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
   color: #FCD34D;
+
 }
 p {
   color: #FCD34D;
@@ -14,43 +27,59 @@ p {
 
 }
 
+.canvas-container button,
+.canvas-container input[type='color'],
+.canvas-container input[type='range'] {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FCD34D; /* Yellow background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+}
+
+.canvas-container input[type='color'] {
+  height: 30px; /* Adjust the height as needed */
+  width: 40px; /* Adjust the width as needed */
+  border: 1px solid #1E293B; /* Optional: Adds a border */
+  border-radius: 5px; /* Optional: Rounds the corners */
+  cursor: pointer;
+}
+
+.canvas-container input[type='range'] {
+  width: 200px;
+}
+
+/* Styling for range input thumb */
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #1E293B;
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #1E293B;
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
-  background-color: hsl(217, 33%, 17%);
   align-items: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #1E293B;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.create-story-style {
+  display: inline-block;
+  background-color: #f4f4f4;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  text-decoration: none;
+  cursor: pointer;
 }

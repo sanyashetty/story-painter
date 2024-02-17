@@ -9,17 +9,21 @@ const FileUploadComponent = () => {
     };
 
     const handleSubmit = async (event) => {
-
+        if (!selectedFile) {
+            alert('Please select a file to upload');
+            return;
+        }
         event.preventDefault();
         const formData = new FormData();
         formData.append('image', selectedFile);
 
         try {
-            const res = await axios.post('/upload', formData, {
+            const res = await axios.post('http://localhost:3034/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+            console.log(res.data)
             alert('File uploaded successfully');
         } catch (error) {
             console.error('Error during file upload:', error);
@@ -28,10 +32,10 @@ const FileUploadComponent = () => {
     };
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <input type="file" onChange={handleFileChange} />
             <button type="submit">Upload</button>
         </form>
     );
-};
+}
 export default FileUploadComponent;
