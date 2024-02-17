@@ -2,7 +2,7 @@ import React from "react";
 import '../App.css';
 import Canvas from '../components/Canvas'
 import FileUploadComponent from "../components/FileUploadComponent"
-import { Link } from "react-router-dom";
+import StoryGenerator from "../components/StoryGenerator";
 
 const Home = () => {
 
@@ -12,9 +12,12 @@ const Home = () => {
 			<p className="caption">
 				From scribbles to stories...
 			</p>
+            <p>Draw Your Own Adventure!</p>
             { <Canvas className = "canvas"></Canvas> }
+            <p>or...</p>
+            <p>Upload your own:</p>
             { <FileUploadComponent /> }
-            <Link to = "/StoryPage" className="create-story-style">Create Your Story!</Link>
+            <StoryGenerator />
 		</div>
         
 	);

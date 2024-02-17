@@ -27,7 +27,52 @@ p {
 
 }
 
-.canvas-container button,
+.create-story-style {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FCD34D; /* Yellow background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+}
+
+.saveButton {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FFFFFF; /* White background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth transition */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+}
+
+.saveButton:hover {
+  background-color: #2758a6; /* Dark background on hover */
+  color: #FFFFFF; /* White text on hover */
+  transform: scale(1.2); /* Slightly increase size on hover */
+}
+
+.saveButton:active {
+  background-color: #D1D5DB; /* Light grey background when active */
+  color: #1E293B; /* Dark text when active */
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1); /* Reduce shadow when active */
+  transform: scale(0.9); /* Slightly decrease size when active */
+}
+
+ button, input {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FCD34D; /* Yellow background */
+   border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+   cursor: pointer;
+} 
+
+.canvas-container .button,
 .canvas-container input[type='color'],
 .canvas-container input[type='range'] {
   margin: 10px;
@@ -82,4 +127,18 @@ input[type='range']::-moz-range-thumb {
   padding: 10px 20px;
   text-decoration: none;
   cursor: pointer;
+}
+
+.fileUpload {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fileUpload:hover {
+  background-color: #2758a6;
+  color: #f4f4f4;
 }

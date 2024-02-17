@@ -1,12 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import { config } from 'dotenv';
-// import { Configuration, OpenAIApi } from 'openai';
 import * as Resemble from '@resemble/node'
 import { fileURLToPath } from 'url';
+import OpenAI from "openai";
+import dotenv from "dotenv";
 
 // Load environment variables
 config();
+dotenv.config();
 
 
 // Create a web server
@@ -49,13 +51,54 @@ app.post('/upload', (req, res) => {
 });
 
 
+// Initialize OpenAI API
+// const openAIApiKey = process.env.OPENAI_API_KEY;
+const openAIApiKey = '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';
+const openai = new OpenAI(openAIApiKey);
 
-// // Initialize OpenAI API
-// const configuration = new Configuration({
-//     apiKey: process.env.OPENAI_API_KEY,
-//   });
-  
-//   const openai = new OpenAIApi(configuration);
+app.get('/generate-story', async (req, res) => {
+    const uploadsDir = path.join(__dirname, 'uploads');
+
+    fs.readdir(uploadsDir, { withFileTypes: true }, async (err, files) => {
+        if (err) {
+            console.error('Error reading uploads directory:', err);
+            return res.status(500).send('Error reading uploads directory');
+        }
+
+        let fileList = files.filter(file => file.isFile())
+                            .map(file => ({ name: file.name, time: fs.statSync(path.join(uploadsDir, file.name)).mtime.getTime() }))
+                            .sort((a, b) => b.time - a.time); // Sort by time in descending order
+
+        if (fileList.length === 0) {
+            return res.status(404).send('No files found in uploads');
+        }
+
+        // Get the most recent file
+        const mostRecentFile = fileList[0].name;
+
+        const imageURL = `${req.protocol}://${req.get('host')}/uploads/${mostRecentFile}`;
+
+        try {
+            const response = await openai.chat.completions.create({
+                model: "gpt-4-vision-preview",
+                messages: [
+                    {
+                        role: "user",
+                        content: [
+                            { type: "text", text: "Generate a children's story based on this image."},
+                            { type: "image_url", image_url: {"url": imageURL } },
+                        ],
+                    },
+                ],
+            });
+            res.send(response.choices[0]);
+        } catch (error) {
+        console.error('Error with OpenAI', error);
+        res.status(500).send('Error processing image with OpenAI');
+        }
+    });
+});
+
 
 // // Define a route to upload image to OpenAI and receive story as output
 // app.get('/ask-me', async (req, res) => {
