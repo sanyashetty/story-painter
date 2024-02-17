@@ -5,99 +5,105 @@ import * as Resemble from '@resemble/node'
 import { fileURLToPath } from 'url';
 import OpenAI from "openai";
 import dotenv from "dotenv";
-
-// Load environment variables
-config();
-dotenv.config();
-
-
-// Create a web server
-const app = express();
-app.use(cors());
-const port = process.env.PORT || 3034;
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
-import fileUpload from 'express-fileupload';
+import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const uploadsDir = path.join(__dirname, 'uploads');
-
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir);
-}
-
-app.use(fileUpload());
-app.use(express.static('public'));
+import { dirname } from 'path';
 
 
-// route to upload an image
-app.post('/upload', (req, res) => {
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('No files were uploaded.')
-  }
-  let uploadedImg = req.files.image;
-  let uploadPath = path.join(__dirname, 'uploads', uploadedImg.name);
 
-  uploadedImg.mv(uploadPath, function(err) {
-    if (err) return res.status(500).send(err);
-    res.send('Image uploaded!')
-  });
-});
+// Load environment variables
+// config();
+// dotenv.config();
 
 
-// Initialize OpenAI API
-// const openAIApiKey = process.env.OPENAI_API_KEY;
-const openAIApiKey = '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';
-const openai = new OpenAI(openAIApiKey);
+// // Create a web server
+// const app = express();
+// app.use(cors());
+// const port = process.env.PORT || 3034;
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
 
-app.get('/generate-story', async (req, res) => {
-    const uploadsDir = path.join(__dirname, 'uploads');
+// import fileUpload from 'express-fileupload';
+// import fs from 'fs';
+// import path from 'path';
 
-    fs.readdir(uploadsDir, { withFileTypes: true }, async (err, files) => {
-        if (err) {
-            console.error('Error reading uploads directory:', err);
-            return res.status(500).send('Error reading uploads directory');
-        }
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
-        let fileList = files.filter(file => file.isFile())
-                            .map(file => ({ name: file.name, time: fs.statSync(path.join(uploadsDir, file.name)).mtime.getTime() }))
-                            .sort((a, b) => b.time - a.time); // Sort by time in descending order
+// const uploadsDir = path.join(__dirname, 'uploads');
 
-        if (fileList.length === 0) {
-            return res.status(404).send('No files found in uploads');
-        }
+// if (!fs.existsSync(uploadsDir)) {
+//     fs.mkdirSync(uploadsDir);
+// }
 
-        // Get the most recent file
-        const mostRecentFile = fileList[0].name;
+// app.use(fileUpload());
+// app.use(express.static('public'));
 
-        const imageURL = `${req.protocol}://${req.get('host')}/uploads/${mostRecentFile}`;
 
-        try {
-            const response = await openai.chat.completions.create({
-                model: "gpt-4-vision-preview",
-                messages: [
-                    {
-                        role: "user",
-                        content: [
-                            { type: "text", text: "Generate a children's story based on this image."},
-                            { type: "image_url", image_url: {"url": imageURL } },
-                        ],
-                    },
-                ],
-            });
-            res.send(response.choices[0]);
-        } catch (error) {
-        console.error('Error with OpenAI', error);
-        res.status(500).send('Error processing image with OpenAI');
-        }
-    });
-});
+// // route to upload an image
+// app.post('/upload', (req, res) => {
+//   if (!req.files || Object.keys(req.files).length === 0) {
+//     return res.status(400).send('No files were uploaded.')
+//   }
+//   let uploadedImg = req.files.image;
+//   let uploadPath = path.join(__dirname, 'uploads', uploadedImg.name);
+
+//   uploadedImg.mv(uploadPath, function(err) {
+//     if (err) return res.status(500).send(err);
+//     res.send('Image uploaded!')
+//   });
+// });
+
+
+// // Initialize OpenAI API
+// // const openAIApiKey = process.env.OPENAI_API_KEY;
+// const openAIApiKey = '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';
+// const openai = new OpenAI(openAIApiKey);
+
+// app.get('/generate-story', async (req, res) => {
+//     const uploadsDir = path.join(__dirname, 'uploads');
+
+//     fs.readdir(uploadsDir, { withFileTypes: true }, async (err, files) => {
+//         if (err) {
+//             console.error('Error reading uploads directory:', err);
+//             return res.status(500).send('Error reading uploads directory');
+//         }
+
+//         let fileList = files.filter(file => file.isFile())
+//                             .map(file => ({ name: file.name, time: fs.statSync(path.join(uploadsDir, file.name)).mtime.getTime() }))
+//                             .sort((a, b) => b.time - a.time); // Sort by time in descending order
+
+//         if (fileList.length === 0) {
+//             return res.status(404).send('No files found in uploads');
+//         }
+
+//         // Get the most recent file
+//         const mostRecentFile = fileList[0].name;
+
+//         const imageURL = `${req.protocol}://${req.get('host')}/uploads/${mostRecentFile}`;
+
+//         try {
+//             const response = await openai.chat.completions.create({
+//                 model: "gpt-4-vision-preview",
+//                 messages: [
+//                     {
+//                         role: "user",
+//                         content: [
+//                             { type: "text", text: "Generate a children's story based on this image."},
+//                             { type: "image_url", image_url: {"url": imageURL } },
+//                         ],
+//                     },
+//                 ],
+//             });
+//             res.send(response.choices[0]);
+//         } catch (error) {
+//         console.error('Error with OpenAI', error);
+//         res.status(500).send('Error processing image with OpenAI');
+//         }
+//     });
+// });
 
 
 // // Define a route to upload image to OpenAI and receive story as output
@@ -112,78 +118,88 @@ app.get('/generate-story', async (req, res) => {
 
 
 
-// // RESEMBLE.AI STUFF
+// RESEMBLE.AI STUFF
 
-// const apiKey = 'afTnZPh68ttrbhrAlR9i4gtt';
+const apiKey = 'afTnZPh68ttrbhrAlR9i4gtt';
 
-// if (!apiKey) {
-//     console.error('Please set the RESEMBLE_API_KEY environment variable.')
-//     process.exit(1)
-// }
+if (!apiKey) {
+    console.error('Please set the RESEMBLE_API_KEY environment variable.')
+    process.exit(1)
+}
 
-// const setupResembleAI = (apiKey) => {
-//     console.log('Setting Resemble API Key...')
-//     Resemble.Resemble.setApiKey(apiKey)
-// }
+const setupResembleAI = (apiKey) => {
+    console.log('Setting Resemble API Key...')
+    Resemble.Resemble.setApiKey(apiKey)
+}
 
-// setupResembleAI(apiKey)
+setupResembleAI(apiKey)
 
 
-// // getting projectUUID
-// let page = 1
-// let pageSize = 10
+// getting projectUUID
+let page = 1
+let pageSize = 10
   
-// // const response = await Resemble.v2.projects.all(page, pageSize)
+// const response = await Resemble.v2.projects.all(page, pageSize)
 
-// const projectUUID = '89b71f00'; // 89b71f00
+const projectUUID = '89b71f00'; // 89b71f00
 
-// // getting project voiceUUID
+// getting project voiceUUID
 
-// const voiceUUID = 'a52c4efc'; //a52c4efc
+const voiceUUID = 'a52c4efc'; //a52c4efc
 
-// // DECLARING PARAMETERS 
+// DECLARING PARAMETERS 
 
-// const title = 'Story Time';
-// const body = 'this is a test';
-// const isPublic = true;
-// const isArchived = false;
+const title = 'Story Time';
+const body = 'testing local file save';
+const isPublic = true;
+const isArchived = false;
 
 
-// const clipArgs = {
-//   project_uuid: projectUUID,
-//   voice_uuid: voiceUUID,
-//   title: title,
-//   body: body,
-//   public: isPublic,
-//   archived: isArchived,
-// };
+const clipArgs = {
+  project_uuid: projectUUID,
+  voice_uuid: voiceUUID,
+  title: title,
+  body: body,
+  public: isPublic,
+  archived: isArchived,
+};
 
-// async function createAudioClip(projectUUID, title, body, voiceUUID, isPublic = false, isArchived = false) {
-//   console.log(`Submitting request to Resemble to create audio clip content: ${body}`);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-//   try {
-//       const response = await Resemble.Resemble.v2.clips.createSync(projectUUID, {
-//           title: title,
-//           voice_uuid: voiceUUID,
-//           body: body,
-//           is_public: isPublic,
-//           is_archived: isArchived,
-//       })
+async function createAudioClip(projectUUID, title, body, voiceUUID, isPublic = false, isArchived = false) {
+  console.log(`Submitting request to Resemble to create audio clip content: ${body}`);
 
-//       if (response.success) {
-//           const clip = response.item;
-//           const clipUUID = clip.uuid;
-//           const clipURL = clip.audio_src;
+  try {
+      const response = await Resemble.Resemble.v2.clips.createSync(projectUUID, {
+          title: title,
+          voice_uuid: voiceUUID,
+          body: body,
+          is_public: isPublic,
+          is_archived: isArchived,
+      })
 
-//           console.log(`Response was successful! ${title} has been created with UUID ${clipUUID}.`);
-//           console.log(clipURL);
-//       } else {
-//           console.log('Response was unsuccessful!');
-//           console.log(response);
-//       }
-//   } catch (error) {
-//       console.error('Error creating audio clip:', error);
-//   }
-// }
+      if (response.success) {
+          const clip = response.item;
+          const clipUUID = clip.uuid;
+          const clipURL = clip.audio_src;
 
-// await createAudioClip(projectUUID, title, body, voiceUUID, isPublic, isArchived);
+          console.log(`Response was successful! ${title} has been created with UUID ${clipUUID}.`);
+          console.log(clipURL);
+
+          // Save the audio clip locally
+          const audioResponse = await axios.get(clipURL, { responseType: 'arraybuffer' });
+          const audioBuffer = Buffer.from(audioResponse.data, 'binary');
+          fs.writeFileSync(path.join(__dirname, 'audio', `${title}.mp3`), audioBuffer);
+          console.log(`Audio clip saved as ${title}.mp3`);
+      } else {
+          console.log('Response was unsuccessful!');
+          console.log(response);
+      }
+  } catch (error) {
+      console.error('Error creating audio clip:', error);
+  }
+}
+
+await createAudioClip(projectUUID, title, body, voiceUUID, isPublic, isArchived);
+
