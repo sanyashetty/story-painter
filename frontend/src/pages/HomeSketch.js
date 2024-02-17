@@ -3,20 +3,17 @@ import '../App.css';
 import Canvas from '../components/Canvas'
 import FileUploadComponent from "../components/FileUploadComponent"
 import StoryGenerator from "../components/StoryGenerator";
+import GenreSelector from "../components/GenreSelector";
 
-const Home = () => {
+const HomeUpload = () => {
 
 	return (
 		<div className="container">
 			<h1 className="title">Story Painter</h1>
-			<p className="caption">
-				From scribbles to stories...
-			</p>
             <p>Draw Your Own Adventure!</p>
             { <Canvas className = "canvas"></Canvas> }
-            <p>or...</p>
-            <p>Upload your own:</p>
-            { <FileUploadComponent /> }
+            <p>Select the genre that you want your story to be:</p>
+            <GenreSelector></GenreSelector>
             <StoryGenerator />
 		</div>
         
@@ -24,4 +21,4 @@ const Home = () => {
 };
 
 
-export default Home;
+export default HomeUpload;

@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Megrim&family=Source+Sans+Pro:wght@400;700&display=swap');
+
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 
   background-color: #1E293B;
 }
 
 button {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 
 }
 
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
   color: #FCD34D;
 
 }
@@ -72,9 +72,33 @@ p {
    cursor: pointer;
 } 
 
-.canvas-container .button,
-.canvas-container input[type='color'],
-.canvas-container input[type='range'] {
+.genre-options .button {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FFFFFF; /* Yellow background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+}
+
+.genre-options .button:hover {
+  background-color: #2758a6; /* Dark background on hover */
+  color: #FFFFFF; /* White text on hover */
+  transform: scale(1.1); /* Slightly increase size on hover */
+}
+
+.genre-options .selected {
+  margin: 10px;
+  padding: 5px 10px;
+  background-color: #FCD34D; /* Yellow background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+}
+
+.canvas-container .button {
   margin: 10px;
   padding: 5px 10px;
   background-color: #FCD34D; /* Yellow background */
@@ -85,8 +109,18 @@ p {
 }
 
 .canvas-container input[type='color'] {
+  margin: 10px;
+  padding: 0px 1px;
+  background-color: #FCD34D; /* Yellow background */
+  border: none;
+  border-radius: 5px;
+  color: #1E293B; /* Dark text */
+  cursor: pointer;
+}
+
+.canvas-container input[type='color'] {
   height: 30px; /* Adjust the height as needed */
-  width: 40px; /* Adjust the width as needed */
+  width: 30px; /* Adjust the width as needed */
   border: 1px solid #1E293B; /* Optional: Adds a border */
   border-radius: 5px; /* Optional: Rounds the corners */
   cursor: pointer;
@@ -95,6 +129,7 @@ p {
 .canvas-container input[type='range'] {
   width: 200px;
 }
+
 
 /* Styling for range input thumb */
 input[type='range']::-webkit-slider-thumb {
@@ -106,12 +141,6 @@ input[type='range']::-webkit-slider-thumb {
   cursor: pointer;
 }
 
-input[type='range']::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #1E293B;
-  cursor: pointer;
-}
 
 .App {
   text-align: center;
@@ -141,4 +170,42 @@ input[type='range']::-moz-range-thumb {
 .fileUpload:hover {
   background-color: #2758a6;
   color: #f4f4f4;
+}
+
+.title-landing {
+  font-family: 'Megrim', cursive;
+  font-size: 96px;
+  display: flex;
+  align-self: flex-start;
+  margin-left: 40px;
+  margin-bottom: -10px;
+}
+
+.title {
+  font-family: 'Megrim', cursive;
+  font-size: 60px;
+  margin-bottom: -10px;
+}
+
+.caption-landing {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 35px;
+  color: white;
+  display: flex;
+  align-self: flex-start;
+  margin-left: 40px;
+  padding-bottom: 40px;
+}
+
+.button-landing {
+  font-size: 35px;
+  border-radius: 20px;
+  width: 650px;
+  height: 100px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
