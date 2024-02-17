@@ -18,7 +18,7 @@ const FileUploadComponent = () => {
         formData.append('image', selectedFile);
 
         try {
-            const res = await axios.post('http://localhost:3034/upload', formData, {
+            const res = await axios.post('http://localhost:3039/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

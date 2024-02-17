@@ -54,7 +54,7 @@ export default function Canvas() {
         formData.append('image', image, 'canvas-image.jpeg');
 
         try {
-            const res = await axios.post('http://localhost:3034/upload', formData, {
+            const res = await axios.post('http://localhost:3039/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

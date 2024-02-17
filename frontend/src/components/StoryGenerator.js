@@ -1,17 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../App.css';
+import AudioPlayer from './AudioPlayer';
 
 
-const StoryGenerator = () => {
+const StoryGenerator = ({selectedGenre}) => {
     const [story, setStory] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showAudioPlayer, setShowAudioPlayer] = useState(false);
+    
+    const displayAudio = () => {
+        setShowAudioPlayer(true);
+    };
+    
+    const genre = selectedGenre;
 
     const fetchStory = async () => {
         setIsLoading(true);
+        // const url = "http://localhost:3039/generate-story?genre=${genre}"
         try {
             // Adjust the endpoint as per your server configuration
-            const response = await axios.get('http://localhost:3034/generate-story');
+            const response = await axios.get('http://localhost:3039/generate-story');
             setStory(response.data);
         } catch (error) {
             console.error('Error fetching story:', error);
@@ -30,6 +39,8 @@ const StoryGenerator = () => {
                 <div>
                     <h2>Your Generated Story</h2>
                     <p>{story}</p>
+                    <button onClick={displayAudio}>Play Audio</button>
+                    {showAudioPlayer && <AudioPlayer fileName="Story-Time.mp3" />}
                 </div>
             )}
         </div>

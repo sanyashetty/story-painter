@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
 import '../App.css';
 import Canvas from '../components/Canvas'
 import FileUploadComponent from "../components/FileUploadComponent"
 import StoryGenerator from "../components/StoryGenerator";
 import GenreSelector from "../components/GenreSelector";
+import AudioPlayer from '../components/AudioPlayer';
 
 const HomeUpload = () => {
+	const [selectedGenre, setSelectedGenre] = useState('');
 
 	return (
 		<div className="container">
@@ -13,8 +15,8 @@ const HomeUpload = () => {
             <p>Upload your own:</p>
             { <FileUploadComponent /> }
 			<p>Select the genre that you want your story to be:</p>
-			<GenreSelector></GenreSelector>
-            <StoryGenerator />
+			<GenreSelector setSelectedGenre={setSelectedGenre} selectedGenre={selectedGenre}></GenreSelector>
+            <StoryGenerator selectedGenre = {selectedGenre}/>
 		</div>
         
 	);
